@@ -19,6 +19,18 @@ class App extends Component {
     ]
   }
 
+  toggleConfirmationAt = indexToChange => {
+    this.setState(prevState => {
+      const updatedGuests = [...prevState.guests];
+      const updatedGuest = { ...updatedGuests[indexToChange] };
+
+      updatedGuest.isConfirmed = !updatedGuest.isConfirmed;
+      updatedGuests[indexToChange] = updatedGuest;
+      
+      return { guests: updatedGuests };
+    });
+  }
+
   getTotalInvited = () => this.state.guests.length;
   getAttendingGuests = () => this.state.guests.filter(guest => guest.isConfirmed).length;
   getUnconfirmedGuests = () => this.state.guests.filter(guest => !guest.isConfirmed).length;
@@ -57,7 +69,10 @@ class App extends Component {
               </tr>
             </tbody>
           </table>
-          <GuestList guests={this.state.guests} />
+          <GuestList 
+            guests={this.state.guests}
+            toggleConfirmationAt={this.toggleConfirmationAt} 
+          />
         </div>
       </div>
     );
