@@ -22,15 +22,21 @@ class App extends Component {
     ]
   }
 
-  toggleGuestPropertyAt = (property, indexToChange) => {
+  updateGuest = (indexToChange, updateGuestProps) => {
     this.setState(prevState => {
       const updatedGuests = [...prevState.guests];
       const updatedGuest = { ...updatedGuests[indexToChange] };
 
-      updatedGuest[property] = !updatedGuest[property];
+      updateGuestProps(updatedGuest);
       updatedGuests[indexToChange] = updatedGuest;
       
       return { guests: updatedGuests };
+    });
+  }
+
+  toggleGuestPropertyAt = (property, indexToChange) => {
+    this.updateGuest(indexToChange, updatedGuest => {
+      updatedGuest[property] = !updatedGuest[property];
     });
   }
 
@@ -40,6 +46,12 @@ class App extends Component {
 
   toggleEditAt = indexToChange => {
     this.toggleGuestPropertyAt("isEditing", indexToChange);
+  }
+
+  setNameAt = (name, indexToChange) => {
+    this.updateGuest(indexToChange, updatedGuest => {
+      updatedGuest.name = name;
+    });
   }
 
   getTotalInvited = () => this.state.guests.length;
@@ -84,6 +96,7 @@ class App extends Component {
             guests={this.state.guests}
             toggleConfirmationAt={this.toggleConfirmationAt} 
             toggleEditAt={this.toggleEditAt}
+            setNameAt={this.setNameAt}
           />
         </div>
       </div>

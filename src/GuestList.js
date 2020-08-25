@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Guest from './Guest';
 
-const GuestList = ({ guests, toggleConfirmationAt, toggleEditAt }) => (
+const GuestList = ({ guests, toggleConfirmationAt, toggleEditAt, setNameAt }) => (
   <ul>
     {guests.map((guest, index) => (
       <Guest 
@@ -11,6 +11,7 @@ const GuestList = ({ guests, toggleConfirmationAt, toggleEditAt }) => (
         key={index} 
         handleConfirmation={() => toggleConfirmationAt(index)}
         handleEdit={() => toggleEditAt(index)}
+        setName={text => setNameAt(text, index)}
       />
     ))}
   </ul>
@@ -19,7 +20,8 @@ const GuestList = ({ guests, toggleConfirmationAt, toggleEditAt }) => (
 GuestList.propTypes = {
   guests: PropTypes.array.isRequired,
   toggleConfirmationAt: PropTypes.func.isRequired,
-  toggleEditAt: PropTypes.func.isRequired
+  toggleEditAt: PropTypes.func.isRequired,
+  setNameAt: PropTypes.func.isRequired
 }
 
 export default GuestList;
