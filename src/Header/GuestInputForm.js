@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const InviteGuestForm = ({ handleNameInput, addNewGuest, pendingGuest }) => {
+const GuestInputForm = ({ handleNameInput, addNewGuest, pendingGuest }) => {
   const newGuestSubmitHandler = e => {
     e.preventDefault();
     addNewGuest();
@@ -20,10 +20,10 @@ const InviteGuestForm = ({ handleNameInput, addNewGuest, pendingGuest }) => {
   )
 }
 
-InviteGuestForm.propTypes = {
+GuestInputForm.propTypes = {
   handleNameInput: PropTypes.func.isRequired,
   addNewGuest: PropTypes.func.isRequired,
   pendingGuest: PropTypes.string.isRequired
 }
 
-export default InviteGuestForm;
+export default GuestInputForm;
