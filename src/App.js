@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GuestList from './GuestList';
 import InviteGuestForm from './InviteGuestForm';
+import Counter from './Counter';
 
 class App extends Component {
   state = {
@@ -90,9 +91,10 @@ class App extends Component {
 
   getTotalInvited = () => this.state.guests.length;
   getAttendingGuests = () => this.state.guests.filter(guest => guest.isConfirmed).length;
-  getUnconfirmedGuests = () => this.state.guests.filter(guest => !guest.isConfirmed).length;
 
   render() {
+    const unconfirmedGuests = this.getTotalInvited() - this.getAttendingGuests();
+
     return (
       <div className="App">
         <header>
@@ -115,22 +117,11 @@ class App extends Component {
               /> Hide those who haven't responded
             </label>
           </div>
-          <table className="counter">
-            <tbody>
-              <tr>
-                <td>Attending:</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>Unconfirmed:</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>Total:</td>
-                <td>3</td>
-              </tr>
-            </tbody>
-          </table>
+          <Counter 
+            totalInvited={this.getTotalInvited()}
+            attendingGuests={this.getAttendingGuests()}
+            unconfirmedGuests={unconfirmedGuests}
+          />
           <GuestList 
             guests={this.state.guests}
             toggleConfirmationAt={this.toggleConfirmationAt} 
