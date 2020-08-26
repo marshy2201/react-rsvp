@@ -6,10 +6,10 @@ import PendingGuest from './PendingGuest';
 
 const GuestList = ({ 
   guests, 
-  toggleConfirmationAt, 
-  removeGuestAt, 
-  toggleEditAt, 
-  setNameAt, 
+  toggleConfirmation, 
+  removeGuest, 
+  toggleEdit, 
+  setName, 
   isFiltered,
   pendingGuest 
 }) => (
@@ -21,10 +21,10 @@ const GuestList = ({
         <Guest 
           {...guest} 
           key={index} 
-          handleConfirmation={() => toggleConfirmationAt(index)}
-          handleRemove={() => removeGuestAt(index)}
-          handleEdit={() => toggleEditAt(index)}
-          setName={text => setNameAt(text, index)}
+          handleConfirmation={() => toggleConfirmation(guest.id)}
+          handleRemove={() => removeGuest(guest.id)}
+          handleEdit={() => toggleEdit(guest.id)}
+          setName={text => setName(text, guest.id)}
         />
     ))}
   </ul>
@@ -32,11 +32,11 @@ const GuestList = ({
 
 GuestList.propTypes = {
   guests: PropTypes.array.isRequired,
-  toggleConfirmationAt: PropTypes.func.isRequired,
-  toggleEditAt: PropTypes.func.isRequired,
-  setNameAt: PropTypes.func.isRequired,
+  toggleConfirmation: PropTypes.func.isRequired,
+  toggleEdit: PropTypes.func.isRequired,
+  setName: PropTypes.func.isRequired,
   isFiltered: PropTypes.bool.isRequired,
-  removeGuestAt: PropTypes.func.isRequired,
+  removeGuest: PropTypes.func.isRequired,
   pendingGuest: PropTypes.string.isRequired
 }
 

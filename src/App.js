@@ -7,61 +7,52 @@ class App extends Component {
   state = {
     isFiltered: false,
     pendingGuest: "",
-    guests: [
-      {
-        name: "Lewis",
-        isConfirmed: false,
-        isEditing: false
-      },
-      {
-        name: "Megan",
-        isConfirmed: true,
-        isEditing: false
-      },
-      {
-        name: "Duke",
-        isConfirmed: false,
-        isEditing: false
-      }
-    ]
+    guests: []
   }
 
-  updateGuest = (indexToChange, updateGuestProps) => {
+  lastGuestId = 0;
+
+  newGuestId = () => {
+    const id = this.lastGuestId;
+    this.lastGuestId += 1;
+    return id;
+  }
+
+  updateGuest = (id, updateGuestProps) => {
     this.setState(prevState => {
       const updatedGuests = [...prevState.guests];
-      const updatedGuest = { ...updatedGuests[indexToChange] };
+      const updatedGuest = { ...updatedGuests.find(guest => id === guest.id) };
+      const guestIndex = updatedGuests.findIndex(guest => id === guest.id )
 
       updateGuestProps(updatedGuest);
-      updatedGuests[indexToChange] = updatedGuest;
+      updatedGuests[guestIndex] = updatedGuest;
       
       return { guests: updatedGuests };
     });
   }
 
-  toggleGuestPropertyAt = (property, indexToChange) => {
-    this.updateGuest(indexToChange, updatedGuest => {
+  toggleGuestProperty = (property, id) => {
+    this.updateGuest(id, updatedGuest => {
       updatedGuest[property] = !updatedGuest[property];
     });
   }
 
-  toggleConfirmationAt = indexToChange => {
-    this.toggleGuestPropertyAt("isConfirmed", indexToChange);
+  toggleConfirmation = id => {
+    this.toggleGuestProperty("isConfirmed", id);
   }
 
-  removeGuestAt = index => {
-    this.setState(prevState => {
-      const guests = [...prevState.guests.filter((guest, guestIndex) => guestIndex !== index)];
-
-      return { guests };
-    });
+  removeGuest = id => {
+    this.setState(prevState => ({
+      guests: prevState.guests.filter(guest => guest.id !== id)
+    }));
   }
 
-  toggleEditAt = indexToChange => {
-    this.toggleGuestPropertyAt("isEditing", indexToChange);
+  toggleEdit = id => {
+    this.toggleGuestProperty("isEditing", id);
   }
 
-  setNameAt = (name, indexToChange) => {
-    this.updateGuest(indexToChange, updatedGuest => {
+  setName = (name, id) => {
+    this.updateGuest(id, updatedGuest => {
       updatedGuest.name = name;
     });
   }
@@ -75,11 +66,14 @@ class App extends Component {
   }
 
   addNewGuest = () => {
+    const id = this.newGuestId();
+
     this.setState(prevState => {
       const newGuest = { 
         name: prevState.pendingGuest,
         isConfirmed: false,
-        isEditing: false
+        isEditing: false,
+        id
       };
     
       return { 
@@ -104,10 +98,10 @@ class App extends Component {
         />
         <MainContent 
           guests={this.state.guests}
-          toggleConfirmationAt={this.toggleConfirmationAt} 
-          removeGuestAt={this.removeGuestAt}
-          toggleEditAt={this.toggleEditAt}
-          setNameAt={this.setNameAt}
+          toggleConfirmation={this.toggleConfirmation} 
+          removeGuest={this.removeGuest}
+          toggleEdit={this.toggleEdit}
+          setName={this.setName}
           isFiltered={this.state.isFiltered}
           pendingGuest={this.state.pendingGuest}
           unconfirmedGuests={unconfirmedGuests}

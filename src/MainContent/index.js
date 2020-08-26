@@ -7,10 +7,10 @@ import ConfirmedFilter from './ConfirmedFilter';
 
 const MainContent = ({
   guests,
-  toggleConfirmationAt,
-  removeGuestAt,
-  toggleEditAt,
-  setNameAt,
+  toggleConfirmation,
+  removeGuest,
+  toggleEdit,
+  setName,
   isFiltered,
   pendingGuest,
   unconfirmedGuests,
@@ -30,10 +30,10 @@ const MainContent = ({
     />
     <GuestList 
       guests={guests}
-      toggleConfirmationAt={toggleConfirmationAt} 
-      removeGuestAt={removeGuestAt}
-      toggleEditAt={toggleEditAt}
-      setNameAt={setNameAt}
+      toggleConfirmation={toggleConfirmation} 
+      removeGuest={removeGuest}
+      toggleEdit={toggleEdit}
+      setName={setName}
       isFiltered={isFiltered}
       pendingGuest={pendingGuest}
     />
@@ -42,10 +42,10 @@ const MainContent = ({
 
 MainContent.propTypes = {
   guests: PropTypes.array.isRequired,
-  toggleConfirmationAt: PropTypes.func.isRequired,
-  removeGuestAt: PropTypes.func.isRequired,
-  toggleEditAt: PropTypes.func.isRequired,
-  setNameAt: PropTypes.func.isRequired,
+  toggleConfirmation: PropTypes.func.isRequired,
+  removeGuest: PropTypes.func.isRequired,
+  toggleEdit: PropTypes.func.isRequired,
+  setName: PropTypes.func.isRequired,
   isFiltered: PropTypes.bool.isRequired,
   pendingGuest: PropTypes.string.isRequired,
   unconfirmedGuests: PropTypes.number.isRequired,
