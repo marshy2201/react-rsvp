@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import GuestName from './GuestName';
 
-const Guest = ({ name, isConfirmed, isEditing, handleConfirmation, handleEdit, setName }) => (
+const Guest = ({ name, isConfirmed, isEditing, handleConfirmation, handleRemove, handleEdit, setName }) => (
   <li>
     <GuestName 
       isEditing={isEditing}
@@ -19,7 +19,7 @@ const Guest = ({ name, isConfirmed, isEditing, handleConfirmation, handleEdit, s
       /> Confirmed
     </label>
     <button onClick={handleEdit}>{isEditing ? "save" : "edit"}</button>
-    <button>remove</button>
+    <button onClick={handleRemove}>remove</button>
   </li>
 )
 
@@ -28,7 +28,8 @@ Guest.propTypes = {
   isConfirmed: PropTypes.bool.isRequired,
   handleConfirmation: PropTypes.func.isRequired,
   handleEdit: PropTypes.func.isRequired,
-  setName: PropTypes.func.isRequired
+  setName: PropTypes.func.isRequired,
+  handleRemove: PropTypes.func.isRequired
 }
 
 export default Guest;

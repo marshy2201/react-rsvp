@@ -47,6 +47,14 @@ class App extends Component {
     this.toggleGuestPropertyAt("isConfirmed", indexToChange);
   }
 
+  removeGuestAt = index => {
+    this.setState(prevState => {
+      const guests = [...prevState.guests.filter((guest, guestIndex) => guestIndex !== index)];
+
+      return { guests };
+    });
+  }
+
   toggleEditAt = indexToChange => {
     this.toggleGuestPropertyAt("isEditing", indexToChange);
   }
@@ -126,6 +134,7 @@ class App extends Component {
           <GuestList 
             guests={this.state.guests}
             toggleConfirmationAt={this.toggleConfirmationAt} 
+            removeGuestAt={this.removeGuestAt}
             toggleEditAt={this.toggleEditAt}
             setNameAt={this.setNameAt}
             isFiltered={this.state.isFiltered}
