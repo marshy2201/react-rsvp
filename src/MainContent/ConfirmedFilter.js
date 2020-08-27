@@ -1,22 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { RsvpContext } from '../context';
 
-const ConfirmedFilter = ({ isFiltered, toggleFilter }) => (
-  <div>
-    <h2>Invitees</h2>
-    <label>
-      <input 
-        type="checkbox" 
-        checked={isFiltered}
-        onChange={toggleFilter} 
-      /> Hide those who haven't responded
-    </label>
-  </div>
-);
+const ConfirmedFilter = () => {
+  const { isFiltered, actions } = useContext(RsvpContext);
 
-ConfirmedFilter.propTypes = {
-  isFiltered: PropTypes.bool.isRequired,
-  toggleFilter: PropTypes.func.isRequired
+  return (
+    <div>
+      <h2>Invitees</h2>
+      <label>
+        <input 
+          type="checkbox" 
+          checked={isFiltered}
+          onChange={actions.toggleFilter} 
+        /> Hide those who haven't responded
+      </label>
+    </div>
+  )
 }
 
 export default ConfirmedFilter;

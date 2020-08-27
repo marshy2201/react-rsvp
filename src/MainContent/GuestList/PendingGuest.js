@@ -1,7 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { RsvpContext } from '../../context';
 
-const PendingGuest = ({ name }) => {
+const PendingGuest = () => {
+  const { pendingGuest: name } = useContext(RsvpContext);
+
   if (name) {
     return (
       <li className="pending">
@@ -11,10 +13,6 @@ const PendingGuest = ({ name }) => {
   }
 
   return null;
-}
-
-PendingGuest.propTypes = {
-  name: PropTypes.string.isRequired
 }
 
 export default PendingGuest;
