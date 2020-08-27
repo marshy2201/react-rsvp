@@ -1,10 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { RsvpContext } from '../context'
 
-const GuestInputForm = ({ handleNameInput, addNewGuest, pendingGuest }) => {
+const GuestInputForm = () => {
+  const { pendingGuest, actions } = useContext(RsvpContext);
+
   const newGuestSubmitHandler = e => {
     e.preventDefault();
-    addNewGuest();
+    actions.addNewGuest();
   }
 
   return (
@@ -13,17 +15,11 @@ const GuestInputForm = ({ handleNameInput, addNewGuest, pendingGuest }) => {
         type="text" 
         placeholder="Invite Someone" 
         value={pendingGuest}
-        onChange={handleNameInput} 
+        onChange={e => actions.handleNameInput(e.target.value)} 
       />
       <button type="submit" name="submit" value="submit">Submit</button>
     </form>
   )
-}
-
-GuestInputForm.propTypes = {
-  handleNameInput: PropTypes.func.isRequired,
-  addNewGuest: PropTypes.func.isRequired,
-  pendingGuest: PropTypes.string.isRequired
 }
 
 export default GuestInputForm;

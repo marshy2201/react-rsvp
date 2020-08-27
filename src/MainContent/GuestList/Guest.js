@@ -1,35 +1,38 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { RsvpContext } from '../../context';
 
 import GuestName from './GuestName';
 
-const Guest = ({ name, isConfirmed, isEditing, handleConfirmation, handleRemove, handleEdit, setName }) => (
-  <li>
-    <GuestName 
-      isEditing={isEditing}
-      handleNameEdits={e => setName(e.target.value)}
-    >
-      {name}
-    </GuestName>
-    <label>
-      <input 
-        type="checkbox" 
-        checked={isConfirmed} 
-        onChange={handleConfirmation} 
-      /> Confirmed
-    </label>
-    <button onClick={handleEdit}>{isEditing ? "save" : "edit"}</button>
-    <button onClick={handleRemove}>remove</button>
-  </li>
-)
+const Guest = ({ id, name, isConfirmed, isEditing }) => {
+  const { actions } = useContext(RsvpContext);
+
+  return (
+    <li>
+      <GuestName 
+        isEditing={isEditing}
+        id={id}      
+      >
+        {name}
+      </GuestName>
+      <label>
+        <input 
+          type="checkbox" 
+          checked={isConfirmed} 
+          onChange={() => actions.toggleConfirmation(id)} 
+        /> Confirmed
+      </label>
+      <button onClick={() => actions.toggleEdit(id)}>{isEditing ? "save" : "edit"}</button>
+      <button onClick={() => actions.removeGuest(id)}>remove</button>
+    </li>
+  )
+}
 
 Guest.propTypes = {
   name: PropTypes.string.isRequired,
   isConfirmed: PropTypes.bool.isRequired,
-  handleConfirmation: PropTypes.func.isRequired,
-  handleEdit: PropTypes.func.isRequired,
-  setName: PropTypes.func.isRequired,
-  handleRemove: PropTypes.func.isRequired
+  isEditing: PropTypes.bool.isRequired,
+  id: PropTypes.number.isRequired
 }
 
 export default Guest;

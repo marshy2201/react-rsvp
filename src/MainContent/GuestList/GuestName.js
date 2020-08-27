@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { RsvpContext } from '../../context';
 import PropTypes from 'prop-types';
 
-const GuestName = ({ isEditing, handleNameEdits, children }) => {
+const GuestName = ({ id, isEditing, children }) => {
+  const { actions } = useContext(RsvpContext);
+
   if (isEditing) {
     return (
       <input 
         type="text" 
         value={children} 
-        onChange={handleNameEdits} 
+        onChange={e => actions.setName(e.target.value, id)} 
       />
     )
   }
@@ -17,7 +20,7 @@ const GuestName = ({ isEditing, handleNameEdits, children }) => {
 
 GuestName.propTypes = {
   isEditing: PropTypes.bool.isRequired,
-  handleNameEdits: PropTypes.func.isRequired
+  id: PropTypes.number.isRequired
 }
 
 export default GuestName;
