@@ -1,29 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Consumer } from '../context';
 
-const GuestInputForm = ({ handleNameInput, addNewGuest, pendingGuest }) => {
-  const newGuestSubmitHandler = e => {
-    e.preventDefault();
-    addNewGuest();
-  }
-
-  return (
-    <form onSubmit={newGuestSubmitHandler}>
-      <input 
-        type="text" 
-        placeholder="Invite Someone" 
-        value={pendingGuest}
-        onChange={handleNameInput} 
-      />
-      <button type="submit" name="submit" value="submit">Submit</button>
-    </form>
-  )
-}
-
-GuestInputForm.propTypes = {
-  handleNameInput: PropTypes.func.isRequired,
-  addNewGuest: PropTypes.func.isRequired,
-  pendingGuest: PropTypes.string.isRequired
-}
+const GuestInputForm = () => (
+  <Consumer>
+    {({ pendingGuest, actions }) => {
+      const newGuestSubmitHandler = e => {
+        e.preventDefault();
+        actions.addNewGuest();
+      }
+    
+      return (
+        <form onSubmit={newGuestSubmitHandler}>
+          <input 
+            type="text" 
+            placeholder="Invite Someone" 
+            value={pendingGuest}
+            onChange={e => actions.handleNameInput(e.target.value)} 
+          />
+          <button type="submit" name="submit" value="submit">Submit</button>
+        </form>
+      )
+    }}
+  </Consumer>
+)
 
 export default GuestInputForm;

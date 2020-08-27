@@ -1,20 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Consumer } from '../../context';
 
-const PendingGuest = ({ name }) => {
-  if (name) {
-    return (
-      <li className="pending">
-        <span>{name}</span>
-      </li>
-    );
-  }
-
-  return null;
-}
-
-PendingGuest.propTypes = {
-  name: PropTypes.string.isRequired
-}
+const PendingGuest = () => (
+  <Consumer>
+    {({ pendingGuest }) => {
+      if (pendingGuest) {
+        return (
+          <li className="pending">
+            <span>{pendingGuest}</span>
+          </li>
+        );
+      }
+    
+      return null;
+    }}
+  </Consumer>
+)
 
 export default PendingGuest;
